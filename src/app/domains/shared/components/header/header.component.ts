@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, signal, SimpleChanges } from '@angular/core';
 // import { Product } from '../../models/product.model';
-import { CarService } from '../../services/car.service';
+import { CarService } from '@shared/services/car.service';
 
 @Component({
   selector: 'app-header',

@@ -9,5 +9,5 @@ export interface Product {
         image: string;
     }
     images: string[];
-    creationAt?: string;
+    creationAt: string;
 }

@@ -16,7 +16,7 @@ export class CounterComponent{
 
   constructor(){
     // NO ASYNC
-    // run before render ONCE
+    // run before render : ONCE
     console.log('constructor');
     console.log('-'.repeat(10));
   }

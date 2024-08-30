@@ -53,6 +53,7 @@ export class CounterComponent{
     // hijos ya fueron pintados
     console.log('ngOnAfterViewInit');
     console.log('-'.repeat(10));
+    
   }
 
   ngOnDestroy(){

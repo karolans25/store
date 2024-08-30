@@ -1,18 +1,21 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ProductComponent } from '../../components/product/product.component';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../../shared/models/product.model';
+import { HeaderComponent } from '../../../shared/components/header/header.component';
+import { CarService } from '../../../shared/services/car.service';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, ProductComponent],
+  imports: [CommonModule, ProductComponent, HeaderComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
 export class ListComponent {
 
   products = signal<Product[]>([]);
+  private carService = inject(CarService);
 
   constructor(){
     const initProducts: Product[] = [
@@ -55,8 +58,9 @@ export class ListComponent {
     this.products.set(initProducts);
   }
 
-  fromChild(event: string){
-    console.log('Listen to the event from parent');
-    console.log(event);
+  addToCar(product: Product ){
+    // this.car.update(prevState => [...prevState, product])
+    // console.log(this.car().length)
+    this.carService.addToCar(product);
   }
 }

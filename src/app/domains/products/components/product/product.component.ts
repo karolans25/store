@@ -19,7 +19,6 @@ export class ProductComponent {
   @Output() addToCar = new EventEmitter();
 
   addToCarHandler(){
-    console.log('Click from child ' + this.product.title);
-    this.addToCar.emit('Hola, este es un msg desde el child ' + this.product.title);
+    this.addToCar.emit( this.product );
   }
 }

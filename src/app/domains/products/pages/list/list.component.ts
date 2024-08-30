@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Product } from '../../../shared/models/product.model';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { CarService } from '../../../shared/services/car.service';
+import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'app-list',
@@ -16,46 +17,58 @@ export class ListComponent {
 
   products = signal<Product[]>([]);
   private carService = inject(CarService);
+  private productService = inject(ProductService);
 
   constructor(){
-    const initProducts: Product[] = [
-      {
-        id: Date.now(),
-        title: 'Product 1',
-        price: 12,
-        img: 'https://picsum.photos/640/640?r=' + Math.random(),
-        creationAt: new Date().toISOString(),
+    // const initProducts: Product[] = [
+    //   {
+    //     id: Date.now(),
+    //     title: 'Product 1',
+    //     price: 12,
+    //     img: 'https://picsum.photos/640/640?r=' + Math.random(),
+    //     creationAt: new Date().toISOString(),
+    //   },
+    //   {
+    //     id: Date.now(),
+    //     title: 'Product 2',
+    //     price: 24,
+    //     img: 'https://picsum.photos/640/640?r=' + Math.random(),
+    //     creationAt: new Date().toISOString(),
+    //   },
+    //   {
+    //     id: Date.now(),
+    //     title: 'Product 3',
+    //     price: 36,
+    //     img: 'https://picsum.photos/640/640?r=' + Math.random(),
+    //     creationAt: new Date().toISOString(),
+    //   },
+    //   {
+    //     id: Date.now(),
+    //     title: 'Product 4',
+    //     price: 24,
+    //     img: 'https://picsum.photos/640/640?r=' + Math.random(),
+    //     creationAt: new Date().toISOString(),
+    //   },
+    //   {
+    //     id: Date.now(),
+    //     title: 'Product 5',
+    //     price: 12,
+    //     img: 'https://picsum.photos/640/640?r=' + Math.random(),
+    //     creationAt: new Date().toISOString(),
+    //   }
+    // ];
+    // this.products.set(initProducts);
+  }
+
+  ngOnInit(){
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products.set(products);
       },
-      {
-        id: Date.now(),
-        title: 'Product 2',
-        price: 24,
-        img: 'https://picsum.photos/640/640?r=' + Math.random(),
-        creationAt: new Date().toISOString(),
-      },
-      {
-        id: Date.now(),
-        title: 'Product 3',
-        price: 36,
-        img: 'https://picsum.photos/640/640?r=' + Math.random(),
-        creationAt: new Date().toISOString(),
-      },
-      {
-        id: Date.now(),
-        title: 'Product 4',
-        price: 24,
-        img: 'https://picsum.photos/640/640?r=' + Math.random(),
-        creationAt: new Date().toISOString(),
-      },
-      {
-        id: Date.now(),
-        title: 'Product 5',
-        price: 12,
-        img: 'https://picsum.photos/640/640?r=' + Math.random(),
-        creationAt: new Date().toISOString(),
+      error: () => {
+        
       }
-    ];
-    this.products.set(initProducts);
+    });
   }
 
   addToCar(product: Product ){

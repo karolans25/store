@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
-import { ListComponent } from './domains/products/pages/list/list.component';
-import { AboutComponent } from './domains/info/pages/about/about.component';
 import { NotFoundComponent } from '@info/pages/not-found/not-found.component';
 import { LayoutComponent } from '@shared/components/layout/layout.component';
-import { ProductDetailComponent } from '@products/pages/product-detail/product-detail.component';
 
 export const routes: Routes = [
     {
@@ -12,15 +9,24 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                component: ListComponent
+                // //Before Lazy Loading
+                // component: ListComponent
+                // //After Lazy Loading
+                // //sin export default en el componente
+                // loadComponent: () => import('./domains/products/pages/list/list.component')
+                // .then(m => m.ListComponent),
+                // //con export default en el componente
+                loadComponent: () => import('./domains/products/pages/list/list.component'),
             },
             {
                 path: 'about',
-                component: AboutComponent
+                // component: AboutComponent
+                loadComponent: () => import('./domains/info/pages/about/about.component'),
             },
             {
                 path: 'product/:id',
-                component: ProductDetailComponent
+                // component: ProductDetailComponent
+                loadComponent: () => import('./domains/products/pages/product-detail/product-detail.component'),
             }        
         ]
     },

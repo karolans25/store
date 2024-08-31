@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, signal } from '@angular/core';
 import { Product } from '@shared/models/product.model';
+import { CarService } from '@shared/services/car.service';
 import { ProductService } from '@shared/services/product.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class ProductDetailComponent {
   cover = signal('');
 
   private productService = inject(ProductService);
+  private carService = inject(CarService);
 
   ngOnInit(){
     if(this.id){
@@ -36,5 +38,12 @@ export class ProductDetailComponent {
 
   changeCover(newImg: string){
     this.cover.set(newImg);
+  }
+
+  addToCar(){
+    const product = this.product();
+    if (product){
+      this.carService.addToCar(product);
+    }
   }
 }
